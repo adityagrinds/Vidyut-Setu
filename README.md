@@ -1,79 +1,104 @@
-# Vidyut Setu - P2P PowerTrading
+# Vidyut Setu — P2P Solar Energy Trading Platform
 
-Complete MERN-style hackathon project with separate layers:
+> **🏆 Hackathon Edition** · Decentralized · Tamper-Proof · AI-Priced · CO₂-Tracked
 
-- `frontend/` -> React + Vite + Tailwind futuristic dashboard UI
-- `backend/` -> Express + MongoDB + JWT secured APIs with atomic trade settlement
-- `database/` -> Mongo Docker compose and DB bootstrap scripts
+## Architecture
 
-Default ports used in this project:
+| Layer | Stack |
+|---|---|
+| Frontend | React + Vite + Tailwind + Recharts + Socket.io-client |
+| Backend  | Express + MongoDB + JWT + Socket.io |
+| Database | MongoDB via Docker |
 
-- Backend API: 5055
-- Frontend dev server: 5188
+**Ports:** Backend `5055` · Frontend `5188`
 
-## Architecture Highlights
+---
 
-- JWT required for protected APIs (`Authorization: Bearer <token>`)
-- Hackathon-safe strict settlement with synchronized writes (`Promise.all`)
-- Live order book, wallet deduction visual, and blockchain-like settlement sequence
-- Ledger refreshes every 5 seconds from API
-- 6-digit dummy payment token verification before consumer settlement
-- Payment ID generated for each trade and shown in immutable ledger
-- Idempotency key protected trades (`x-idempotency-key`) to prevent duplicate debit
-- Tamper-evident hash chain (`prevHash` -> `currentHash`) with integrity status in ledger
+## ⚡ Feature Highlights
 
-## One-Click Run (Windows)
+### 🌿 Environmental
+- **CO₂ offset tracking** — every trade calculates `energyKw × 0.82 kg/kWh` (solar vs Indian coal grid)
+- **Trees equivalent** counter for community impact
+- **Green Energy Certificate (REC)** — downloadable JSON per trade with full audit trail
 
-From project root:
+### 🧠 AI-Powered
+- **Real dynamic pricing** — `7 + demandPressure - supplyDiscount` formula, adjusts per broadcast
+
+### 🔗 Blockchain-style
+- **Tamper-evident hash chain** (`prevHash → currentHash`) with live integrity verification
+- **Idempotency keys** prevent double-settlement
+- **Atomic settlement** (`Promise.all`) — wallet + listing updated in one batch
+
+### 📡 Real-Time
+- **Socket.io** — trade settlements and new listings pushed live (no 5s polling)
+- **Live energy meter** fluctuating every 3.5s simulating IoT
+
+### 🛡️ Production-Ready Polish
+- **Security middleware** — Helmet + API rate limiting + response compression
+- **Operational health telemetry** — API health endpoint exposes DB status + uptime
+- **Safer shutdown script** — stops only Vidyut Setu Node processes
+
+### 🎨 UI (Stitch Vidyut Aurora Design System)
+- Glassmorphism panels with Stitch-generated design tokens
+- Tabbed navigation: Market · Community · Ledger
+- Toast notifications (no more `alert()`)
+- Carbon leaderboard with medal rankings
+- Recharts line chart (generation vs consumption)
+- Consumer marketplace search, sort, and price filters
+- Session persistence + live backend status indicator
+- Fully mobile-responsive
+
+---
+
+## 🚀 One-Click Run (Windows)
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\start-all.ps1
 ```
 
-This script will:
+Open: **http://localhost:5188**
 
-- create missing `.env` files
-- install dependencies if missing
-- try starting MongoDB via Docker
-- run seed
-- launch backend and frontend in separate terminals
+---
 
-To stop all Node dev servers:
+## 🧪 Demo Accounts
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\stop-all.ps1
-```
+| Role | Email | Password | Token |
+|---|---|---|---|
+| ☀️ Prosumer | `prosumer@sauryasetu.local` | `123456` | — |
+| 🏠 Consumer | `consumer@sauryasetu.local` | `123456` | `654321` |
+| 🏠 Consumer 2 | `consumer2@sauryasetu.local` | `123456` | `112233` |
+| 🏠 Consumer 3 | `consumer3@sauryasetu.local` | `123456` | `998877` |
 
-## Quick Start
+5 prosumers + 3 consumers pre-seeded with 5 active marketplace listings.
 
-1. Start MongoDB
+---
 
-```bash
-cd database
-docker compose up -d
-```
-
-2. Start backend
+## Manual Start
 
 ```bash
-cd ../backend
-copy .env.example .env
-npm install
-npm run seed
-npm run dev
+# 1. MongoDB
+cd database && docker compose up -d
+
+# 2. Backend
+cd backend && cp .env.example .env && npm install && npm run seed && npm run dev
+
+# 3. Frontend
+cd frontend && cp .env.example .env && npm install && npm run dev
 ```
 
-3. Start frontend
+---
 
-```bash
-cd ../frontend
-copy .env.example .env
-npm install
-npm run dev
-```
+## API Endpoints
 
-## Demo Accounts
-
-- Prosumer: `prosumer@sauryasetu.local` / `123456`
-- Consumer: `consumer@sauryasetu.local` / `123456`
-- Consumer payment token: `654321`
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/login` | JWT login |
+| GET  | `/api/wallet/me` | User wallet |
+| GET  | `/api/listings` | Live marketplace |
+| POST | `/api/broadcast` | Publish energy packet |
+| POST | `/api/trade` | Atomic energy settlement |
+| GET  | `/api/community/stats` | CO₂ stats + leaderboard |
+| GET  | `/api/ledger/recent` | Last 20 trades |
+| GET  | `/api/ledger/certificate/:id` | Green Energy REC |
+| WebSocket | `trade:settled` | Real-time settlement push |
+| WebSocket | `listing:new` | Real-time listing push |
