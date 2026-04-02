@@ -8,6 +8,7 @@ const transactionSchema = new mongoose.Schema(
     energyKw: { type: Number, required: true },
     pricePerKw: { type: Number, required: true },
     amountTet: { type: Number, required: true },
+    co2SavedKg: { type: Number, required: true }, // 0.82 kg CO2 per kWh of solar vs grid
     paymentId: { type: String, required: true },
     idempotencyKey: { type: String, required: true, unique: true },
     prevHash: { type: String, required: true },
