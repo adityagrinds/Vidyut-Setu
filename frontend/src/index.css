@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #d8f3ff;
+  --bg-1: #0a0f1d;
+  --bg-2: #151d31;
+  --accent: #fb923c;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Rajdhani", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 15%, rgba(251, 146, 60, 0.2), transparent 30%),
+    radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.2), transparent 35%),
+    linear-gradient(140deg, var(--bg-1), var(--bg-2));
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.aurora-bg {
+  position: fixed;
+  inset: -30vmax;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.22), transparent 38%),
+    radial-gradient(circle at 70% 35%, rgba(251, 146, 60, 0.23), transparent 40%),
+    radial-gradient(circle at 40% 75%, rgba(74, 222, 128, 0.12), transparent 35%);
+  animation: drift 16s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+.depth-orb {
+  position: fixed;
+  border-radius: 999px;
+  filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.depth-orb-a {
+  width: 34vmax;
+  height: 34vmax;
+  left: -10vmax;
+  top: 14vmax;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2), transparent 68%);
+  animation: orbFloatA 14s ease-in-out infinite;
+}
+
+.depth-orb-b {
+  width: 30vmax;
+  height: 30vmax;
+  right: -7vmax;
+  top: 4vmax;
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.2), transparent 72%);
+  animation: orbFloatB 12s ease-in-out infinite;
+}
+
+.scene-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle at center, transparent 45%, rgba(2, 6, 23, 0.5) 100%);
+}
+
+.grid-lines {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(circle at 50% 45%, black 30%, transparent 85%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  margin-left: -110px;
+  margin-top: -110px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2), transparent 70%);
+  z-index: 1;
+  transition: transform 0.08s linear;
+}
+
+.logo-core {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(251, 146, 60, 0.55), rgba(56, 189, 248, 0.45));
+  box-shadow: 0 0 24px rgba(251, 146, 60, 0.35);
+  transform: rotate(8deg);
+}
+
+.logo-text {
+  margin: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: #e5f7ff;
+  text-shadow: 0 0 22px rgba(56, 189, 248, 0.45), 0 0 36px rgba(251, 146, 60, 0.2);
+}
+
+.boot-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.18), transparent 45%),
+    linear-gradient(150deg, #050816, #0f172a);
+}
+
+.boot-core {
+  width: min(560px, 92vw);
+  text-align: center;
+  padding: 2rem;
+  border: 1px solid rgba(226, 232, 240, 0.18);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.boot-title {
+  margin: 0.7rem 0 0;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.boot-sub {
+  color: rgba(186, 230, 253, 0.85);
+}
+
+.boot-bar {
+  margin-top: 1rem;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.22);
+  overflow: hidden;
+}
+
+.boot-fill {
+  display: block;
+  height: 100%;
+  width: 42%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(251, 146, 60, 0.95), rgba(34, 211, 238, 0.95));
+  animation: loading 1.6s ease-in-out infinite;
+}
+
+.role-card {
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  border-radius: 18px;
+  padding: 1.4rem;
+  text-align: left;
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.38));
+  color: inherit;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(103, 232, 249, 0.85);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.42);
+}
+
+.neo-btn {
+  border: 1px solid rgba(226, 232, 240, 0.25);
+  background: linear-gradient(140deg, rgba(30, 41, 59, 0.68), rgba(15, 23, 42, 0.52));
+  color: #dbeafe;
+  border-radius: 12px;
+  padding: 0.55rem 0.95rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.neo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(56, 189, 248, 0.24);
+  border-color: rgba(125, 211, 252, 0.7);
+}
+
+.neo-btn.warm {
+  background: linear-gradient(140deg, rgba(251, 146, 60, 0.26), rgba(251, 146, 60, 0.1));
+}
+
+.neo-btn.cool {
+  background: linear-gradient(140deg, rgba(34, 211, 238, 0.25), rgba(37, 99, 235, 0.12));
+}
+
+.neo-btn.danger {
+  background: linear-gradient(140deg, rgba(248, 113, 113, 0.24), rgba(127, 29, 29, 0.16));
+}
+
+.tab-btn {
+  border: 1px solid rgba(226, 232, 240, 0.24);
+  border-radius: 12px;
+  padding: 0.45rem 0.85rem;
+  background: rgba(15, 23, 42, 0.65);
+  color: #cbd5e1;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  color: #ecfeff;
+  border-color: rgba(34, 211, 238, 0.72);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.22);
+}
+
+.glass-card {
+  border: 1px solid rgba(226, 232, 240, 0.24);
+  border-radius: 16px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  padding: 1rem;
+  backdrop-filter: blur(14px);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: rgba(125, 211, 252, 0.65);
+}
+
+.market-card {
+  position: relative;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 18px;
+  padding: 1rem;
+  background: linear-gradient(150deg, rgba(8, 47, 73, 0.45), rgba(15, 23, 42, 0.65));
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.market-card:hover {
+  transform: perspective(900px) rotateX(3deg) rotateY(-5deg);
+  box-shadow: 0 18px 28px rgba(15, 23, 42, 0.42);
+}
+
+.orbit-glow {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  width: 170px;
+  height: 170px;
+  margin-left: -85px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.28), transparent 70%);
+  animation: pulse 2.8s ease-in-out infinite;
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(-1.2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(1.2%, 1%, 0) scale(1.04);
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+@keyframes orbFloatA {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3vmax, -2vmax, 0) scale(1.06); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes orbFloatB {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-2.5vmax, 2vmax, 0) scale(1.05); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
